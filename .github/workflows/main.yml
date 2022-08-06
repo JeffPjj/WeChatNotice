@@ -30,3 +30,5 @@ jobs:
       START_DATE: ${{ secrets.START_DATE }}
       BIRTHDAY: ${{ secrets.BIRTHDAY }}
       CITY: ${{ secrets.CITY }}
+      BIG_MOTHER_DAY: ${{ secrets.BIG_MOTHER_DAY }}
+      TX_API_KEY: ${{ secrets.TX_API_KEY }}
