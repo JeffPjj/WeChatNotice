@@ -5,6 +5,8 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
+from datetime import timedelta
+from datetime import timezone
 
 today_date = datetime.now()
 start_date = os.environ['START_DATE']
@@ -21,9 +23,8 @@ tain_xing_api_key = os.environ["TX_API_KEY"]
 
 
 
-def get_tody():
-    return str(datetime.strptime(str(date.today()), "%Y-%m-%d")).split(" ")[0]
-
+def get_tody(utc_date):
+    return str(datetime.strptime(str(utc_date), "%Y-%m-%d")).split(" ")[0]
 
 def get_weekday():
     num = datetime.now().weekday()
@@ -93,7 +94,21 @@ def get_next_mother_day():
     return 30 - (datetime.now() - datetime.strptime(big_mother_day, "%Y-%m-%d")).days
 
 def run():
-    today = get_tody()
+    
+    SHA_TZ = timezone(
+        timedelta(hours=8),
+        name='Asia/Shanghai',
+    )
+
+    # 协调世界时
+    utc_now = datetime.utcnow().replace(tzinfo=timezone.utc)
+    print(utc_now, utc_now.tzname())
+    print(utc_now.date(), utc_now.tzname())
+
+    # 北京时间
+    beijing_now = utc_now.astimezone(SHA_TZ)
+    
+    today = get_tody(str(beijing_now).split(" ")[0])
     weekday = get_weekday()
     love_days = get_love_days()
     weather, temperature, min_temperature, max_temperature = get_weather()
@@ -104,21 +119,22 @@ def run():
     client = WeChatClient(app_id, app_secret)
     wm = WeChatMessage(client)
     data = {
-        "today": {"value": today, "color": "#e69138"},
+        "today": {"value": today, "color": "#f4cccc"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
-        "weather": {"value": weather, "color": "#f1c232"},
+        "weather": {"value": weather, "color": "#ffff00"},
         "temperature": {"value": temperature, "color": "#674ea7"},
         "min_temperature": {"value": min_temperature, "color": "#3d85c6"},
         "max_temperature": {"value": max_temperature, "color": "#a64d79"},
         "big_mother_day": {"value": big_mother_day, "color": "#a61c00"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
         "cai_hong_pi": {"value": cai_hong_pi, "color": "#c9daf8"},
-        "jin_shan_en": {"value": jin_shan_en, "color": "#6fa8dc"},
-        "jin_shan_zh": {"value": jin_shan_zh, "color": "#a4c2f4"}
+        "jin_shan_en": {"value": jin_shan_en, "color": "#a4c2f4"},
+        "jin_shan_zh": {"value": jin_shan_zh, "color": "#6fa8dc"}
     }
-    print(data)
     res = wm.send_template(user_id, template_id, data)
     print(res)
+    print(data)
+
 run()
 
