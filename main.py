@@ -104,7 +104,7 @@ def run():
     client = WeChatClient(app_id, app_secret)
     wm = WeChatMessage(client)
     data = {
-        "today": {"value": today, "color": "#f4cccc"},
+        "today": {"value": today, "color": "#e69138"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
         "weather": {"value": weather, "color": "#f1c232"},
@@ -113,8 +113,8 @@ def run():
         "max_temperature": {"value": max_temperature, "color": "#a64d79"},
         "big_mother_day": {"value": big_mother_day, "color": "#a61c00"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
-        "cai_hong_pi": {"value": cai_hong_pi, "color": "#6fa8dc"},
-        "jin_shan_en": {"value": jin_shan_en, "color": "#a4c2f4"},
+        "cai_hong_pi": {"value": cai_hong_pi, "color": "#c9daf8"},
+        "jin_shan_en": {"value": jin_shan_en, "color": "#6fa8dc"},
         "jin_shan_zh": {"value": jin_shan_zh, "color": "#a4c2f4"}
     }
     print(data)
