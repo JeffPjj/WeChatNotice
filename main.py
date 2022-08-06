@@ -119,5 +119,5 @@ def run():
     }
     res = wm.send_template(user_id, template_id, data)
     print(res)
-
+run()
 
