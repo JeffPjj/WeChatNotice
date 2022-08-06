@@ -15,7 +15,9 @@ big_mother_day = os.environ['BIG_MOTHER_DAY']
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
-user_id = os.environ["USER_ID"]
+user_id1 = os.environ["USER_ID1"]
+user_id2 = os.environ["USER_ID2"]
+
 template_id = os.environ["TEMPLATE_ID"]
 
 tain_xing_api_key = os.environ["TX_API_KEY"]
@@ -102,7 +104,7 @@ def get_random_color():
 def get_next_mother_day(today_date):
     return 30 - (today_date - datetime.strptime(big_mother_day, "%Y-%m-%d")).days
 
-def run():
+def run(user_id):
     today_date = get_tody()
     weekday = get_weekday()
     love_days = get_love_days(today_date)
@@ -131,5 +133,5 @@ def run():
     print(res)
     print(data)
 
-run()
-
+run(user_id1)
+run(user_id2)
