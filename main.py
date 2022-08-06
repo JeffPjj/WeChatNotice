@@ -107,16 +107,17 @@ def run():
         "today": {"value": today, "color": "#f4cccc"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
-        "weather": {"value": weather, "color": "#ffff00"},
+        "weather": {"value": weather, "color": "#f1c232"},
         "temperature": {"value": temperature, "color": "#674ea7"},
         "min_temperature": {"value": min_temperature, "color": "#3d85c6"},
         "max_temperature": {"value": max_temperature, "color": "#a64d79"},
         "big_mother_day": {"value": big_mother_day, "color": "#a61c00"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
-        "cai_hong_pi": {"value": cai_hong_pi, "color": "#c9daf8"},
+        "cai_hong_pi": {"value": cai_hong_pi, "color": "#6fa8dc"},
         "jin_shan_en": {"value": jin_shan_en, "color": "#a4c2f4"},
-        "jin_shan_zh": {"value": jin_shan_zh, "color": "#6fa8dc"}
+        "jin_shan_zh": {"value": jin_shan_zh, "color": "#a4c2f4"}
     }
+    print(data)
     res = wm.send_template(user_id, template_id, data)
     print(res)
 run()
