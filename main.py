@@ -1,7 +1,7 @@
 from datetime import date, datetime
 import math
 from wechatpy import WeChatClient
-from wechatpy.client.api import WeChatMessage, WeChatTemplate
+from wechatpy.client.api import WeChatMessage
 import requests
 import os
 import random
@@ -37,8 +37,8 @@ def get_tody():
     beijing_now = utc_now.astimezone(SHA_TZ)
     return datetime.strptime(str(beijing_now).split(" ")[0], "%Y-%m-%d")
 
-def get_weekday():
-    num = datetime.now().weekday()
+def get_weekday(today_date):
+    num = today_date.weekday()
     weekdayDict = {"0": "星期一", "1": "星期二", "2": "星期三", "3": "星期四", "4": "星期五", "5": "星期六", "6": "星期日"}
     return weekdayDict.get(str(num))
 
@@ -86,7 +86,7 @@ def get_love_days(today_date):
 
 def get_birthday(today_date):
     next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
-    if next < datetime.now():
+    if next < today_date:
         next = next.replace(year=next.year + 1)
     return (next - today_date).days
 
@@ -107,7 +107,7 @@ def get_next_mother_day(today_date):
 def run(user_id):
     today_date = get_tody()
     today_str = str(today_date).split(" ")[0]
-    weekday = get_weekday()
+    weekday = get_weekday(today_date)
     love_days = get_love_days(today_date)
     weather, temperature, min_temperature, max_temperature = get_weather()
     next_big_mother_day = get_next_mother_day(today_date)
@@ -120,17 +120,17 @@ def run(user_id):
         "today": {"value": today_str, "color": "#f4cccc"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
-        "weather": {"value": weather, "color": "#ffff00"},
+        "weather": {"value": weather, "color": "#e69138"},
         "temperature": {"value": temperature, "color": "#674ea7"},
         "min_temperature": {"value": min_temperature, "color": "#3d85c6"},
         "max_temperature": {"value": max_temperature, "color": "#a64d79"},
         "big_mother_day": {"value": big_mother_day, "color": "#a61c00"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
-        "cai_hong_pi": {"value": cai_hong_pi, "color": "#c9daf8"},
-        "jin_shan_en": {"value": jin_shan_en, "color": "#a4c2f4"},
-        "jin_shan_zh": {"value": jin_shan_zh, "color": "#6fa8dc"}
+        "cai_hong_pi": {"value": cai_hong_pi, "color": "#a4c2f4"},
+        "jin_shan_en": {"value": jin_shan_en, "color": "#6fa8dc"},
+        "jin_shan_zh": {"value": jin_shan_zh, "color": "#c9daf8"}
     }
-    print(user_id, template_id, data)
+    print(data)
     res = wm.send_template(user_id, template_id, data)
     print(res)
 
