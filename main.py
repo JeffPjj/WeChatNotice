@@ -129,9 +129,9 @@ def run(user_id):
         "jin_shan_en": {"value": jin_shan_en, "color": "#a4c2f4"},
         "jin_shan_zh": {"value": jin_shan_zh, "color": "#6fa8dc"}
     }
+    print(data)
     res = wm.send_template(user_id, template_id, data)
     print(res)
-    print(data)
 
 run(user_id1)
 run(user_id2)
