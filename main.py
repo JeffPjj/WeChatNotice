@@ -8,7 +8,6 @@ import random
 from datetime import timedelta
 from datetime import timezone
 
-today_date = datetime.now()
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']
@@ -23,8 +22,18 @@ tain_xing_api_key = os.environ["TX_API_KEY"]
 
 
 
-def get_tody(utc_date):
-    return str(datetime.strptime(str(utc_date), "%Y-%m-%d")).split(" ")[0]
+def get_tody():
+    SHA_TZ = timezone(
+        timedelta(hours=8),
+        name='Asia/Shanghai',
+    )
+
+    # 协调世界时
+    utc_now = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+    # 北京时间
+    beijing_now = utc_now.astimezone(SHA_TZ)
+    return datetime.strptime(str(beijing_now).split(" ")[0], "%Y-%m-%d")
 
 def get_weekday():
     num = datetime.now().weekday()
@@ -68,12 +77,12 @@ def get_jin_shan(date):
         return "今天金句还没出炉"
 
 
-def get_love_days():
+def get_love_days(today_date):
     delta = today_date - datetime.strptime(start_date, "%Y-%m-%d")
     return delta.days
 
 
-def get_birthday():
+def get_birthday(today_date):
     next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
     if next < datetime.now():
         next = next.replace(year=next.year + 1)
@@ -90,36 +99,22 @@ def get_words():
 def get_random_color():
     return "#%06x" % random.randint(0, 0xFFFFFF)
 
-def get_next_mother_day():
-    return 30 - (datetime.now() - datetime.strptime(big_mother_day, "%Y-%m-%d")).days
+def get_next_mother_day(today_date):
+    return 30 - (today_date - datetime.strptime(big_mother_day, "%Y-%m-%d")).days
 
 def run():
-    
-    SHA_TZ = timezone(
-        timedelta(hours=8),
-        name='Asia/Shanghai',
-    )
-
-    # 协调世界时
-    utc_now = datetime.utcnow().replace(tzinfo=timezone.utc)
-    print(utc_now, utc_now.tzname())
-    print(utc_now.date(), utc_now.tzname())
-
-    # 北京时间
-    beijing_now = utc_now.astimezone(SHA_TZ)
-    
-    today = get_tody(str(beijing_now).split(" ")[0])
+    today_date = get_tody()
     weekday = get_weekday()
-    love_days = get_love_days()
+    love_days = get_love_days(today_date)
     weather, temperature, min_temperature, max_temperature = get_weather()
-    next_big_mother_day = get_next_mother_day()
+    next_big_mother_day = get_next_mother_day(today_date)
     cai_hong_pi = get_cai_hong_pi()
-    jin_shan_en, jin_shan_zh = get_jin_shan(today)
+    jin_shan_en, jin_shan_zh = get_jin_shan(str(today_date).split(" ")[0])
 
     client = WeChatClient(app_id, app_secret)
     wm = WeChatMessage(client)
     data = {
-        "today": {"value": today, "color": "#f4cccc"},
+        "today": {"value": today_date, "color": "#f4cccc"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
         "weather": {"value": weather, "color": "#ffff00"},
