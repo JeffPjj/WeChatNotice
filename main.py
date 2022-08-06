@@ -106,17 +106,18 @@ def get_next_mother_day(today_date):
 
 def run(user_id):
     today_date = get_tody()
+    today_str = str(today_date).split(" ")[0]
     weekday = get_weekday()
     love_days = get_love_days(today_date)
     weather, temperature, min_temperature, max_temperature = get_weather()
     next_big_mother_day = get_next_mother_day(today_date)
     cai_hong_pi = get_cai_hong_pi()
-    jin_shan_en, jin_shan_zh = get_jin_shan(str(today_date).split(" ")[0])
+    jin_shan_en, jin_shan_zh = get_jin_shan(today_str)
 
     client = WeChatClient(app_id, app_secret)
     wm = WeChatMessage(client)
     data = {
-        "today": {"value": today_date, "color": "#f4cccc"},
+        "today": {"value": today_str, "color": "#f4cccc"},
         "weekday": {"value": weekday, "color": "#76a5af"},
         "love_days": {"value": love_days, "color": "#ea9999"},
         "weather": {"value": weather, "color": "#ffff00"},
