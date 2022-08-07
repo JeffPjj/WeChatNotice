@@ -10,9 +10,9 @@ from datetime import timezone
 
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
+
 her_birthday = os.environ['HER_BIRTHDAY']
 my_birthday = os.environ['MY_BIRTHDAY']
-
 
 big_mother_day = os.environ['BIG_MOTHER_DAY']
 big_mother_day_leave = os.environ['BIG_MOTHER_DAY_LEAVE']
@@ -102,7 +102,7 @@ def get_weather():
     url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
     res = requests.get(url).json()
     weather = res['data']['list'][0]
-    return weather['weather'], math.floor(weather['wind']), math.floor(weather['temp']), math.floor(weather['low']), math.floor(weather['high']), math.floor(weather['airQuality']), math.floor(weather['humidity'])
+    return weather['weather'], weather['wind'], math.floor(weather['temp']), math.floor(weather['low']), math.floor(weather['high']), weather['airQuality'], weather['humidity']
 
 
 def get_weather_notice(weather):
