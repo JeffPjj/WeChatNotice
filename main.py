@@ -220,7 +220,7 @@ def weather_sender(wm, user_id, template_id):
         "max_temperature": {"value": max_temperature, "color": "#a64d79"},
         "air_quality": {"value": air_quality, "color": "#CD6839"},
         "humidity": {"value": humidity, "color": "#6495ED"},
-        "weather_notice": {"value": weather_notice, "color": "#6495ED"},
+        "weather_notice": {"value": weather_notice, "color": "#75A3AE"},
     }
     print(data)
     res = wm.send_template(user_id, template_id, data)
@@ -248,7 +248,7 @@ def date_menage_sender(wm, user_id, template_id):
         "big_mother_day_leave": {"value": big_mother_day_leave, "color": "#E69E9E"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
         "text2": text2,
-        "mother_day_notice": {"value": mother_day_notice, "color": "#6495ED"},
+        "mother_day_notice": {"value": mother_day_notice, "color": "#75A3AE"},
     }
     print(data)
     res = wm.send_template(user_id, template_id, data)
@@ -263,6 +263,8 @@ def funny_sender(wm, user_id, template_id):
         "cai_hong_pi": {"value": cai_hong_pi, "color": "#FF6666"},
         "tian_gou": {"value": tian_gou, "color": "#A64DFF"},
         "zi_mi": {"value": zi_mi, "color": "#990000"},
+        "answer": {"value": answer, "color": "#FFFFFF"},
+        "reason": {"value": reason, "color": "#FFFFFF"},
     }
     print(data)
     res = wm.send_template(user_id, template_id, data)
