@@ -1,6 +1,6 @@
 name: morning
 on:
-  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   send_message:
