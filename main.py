@@ -276,12 +276,22 @@ def wwzc_sender(wm, user_id, template_id):
     today_date = get_tody()
     today_str = str(today_date).split(" ")[0]
 
-    lines_zh, lines_en = get_tai_ci()
+    # lines_zh, lines_en = get_tai_ci()
     lines = "今天是哑剧，没台词"
-    if lines_en.strip() != "" and lines_zh.strip() != "":
-        lines = lines_en + "\n" + lines_zh
-    elif lines_en.strip() != "" or lines_zh.strip() != "":
-        lines = lines_en + lines_zh
+    times = 0
+    while(True):
+        if times >= 5:
+            break
+        lines_zh, lines_en = get_tai_ci()
+        if len(lines_en) <= 90 and len(lines_zh) <= 50:
+            if lines_en.strip() != "" and lines_zh.strip() != "":
+                lines = lines_en + "\n" + lines_zh
+                break
+            elif lines_en.strip() != "" or lines_zh.strip() != "":
+                lines = lines_en + lines_zh
+                break
+        times += 1
+        
     jin_shan_en, jin_shan_zh = get_jin_shan(today_str)
     wyy_comment = get_wyy_comment()
 
@@ -304,4 +314,4 @@ def run(user_id):
     wwzc_sender(wm, user_id, wwzc_template_id)
 
 run(user_id1)
-# run(user_id2)
+run(user_id2)
