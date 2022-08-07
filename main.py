@@ -67,7 +67,7 @@ def get_tai_ci():
         data_dict = response.json()['newslist'][0]
         return data_dict['dialogue'], data_dict['english']
     else:
-        return "今天台词说不出来"
+        return "今天是哑剧，没台词", ""
 
 
 def get_tian_gou():
@@ -86,7 +86,7 @@ def get_cai_zi_mi():
         data_dict = response.json()['newslist'][0]
         return data_dict['content'], data_dict['answer'], data_dict['reason']
     else:
-        return "今天字谜路了"
+        return "今天字谜路了", "", ""
 
 
 def get_wyy_comment():
@@ -237,6 +237,8 @@ def date_menage_sender(wm, user_id, template_id):
     # TODO:next_big_mother_day 根据天数变换颜色
     b_m_d, text1, b_m_d_l, next_big_mother_day, text2 = get_big_mother_value(big_mother_day, big_mother_day_leave, today_date)
 
+    mother_day_notice = get_mother_day_notice(big_mother_day, today_date)
+
     data = {
         "love_days": {"value": love_days, "color": "#ea9999"},
         "until_her_birthday": {"value": until_her_birthday, "color": "#E9967A"},
@@ -245,7 +247,8 @@ def date_menage_sender(wm, user_id, template_id):
         "text1": text1,
         "big_mother_day_leave": {"value": big_mother_day_leave, "color": "#E69E9E"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
-        "text2": text2
+        "text2": text2,
+        "mother_day_notice": {"value": mother_day_notice, "color": "#6495ED"},
     }
     print(data)
     res = wm.send_template(user_id, template_id, data)
@@ -254,7 +257,7 @@ def date_menage_sender(wm, user_id, template_id):
 def funny_sender(wm, user_id, template_id):
     cai_hong_pi = get_cai_hong_pi()
     tian_gou = get_tian_gou()
-    zi_mi = get_cai_zi_mi()
+    zi_mi, answer, reason = get_cai_zi_mi()
 
     data = {
         "cai_hong_pi": {"value": cai_hong_pi, "color": "#FF6666"},
@@ -271,7 +274,12 @@ def wwzc_sender(wm, user_id, template_id):
     today_date = get_tody()
     today_str = str(today_date).split(" ")[0]
 
-    lines = get_tai_ci()
+    lines_zh, lines_en = get_tai_ci()
+    lines = "今天是哑剧，没台词"
+    if lines_en.strip() != "" and lines_zh.strip() != "":
+        lines = lines_en + "\n" + lines_zh
+    elif lines_en.strip() != "" or lines_zh.strip() != "":
+        lines = lines_en + lines_zh
     jin_shan_en, jin_shan_zh = get_jin_shan(today_str)
     wyy_comment = get_wyy_comment()
 
