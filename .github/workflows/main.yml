@@ -23,13 +23,24 @@ jobs:
     - run: pip install -r ./requirements.txt && python ./main.py
 
     env:
+      START_DATE: ${{ secrets.START_DATE }}
+      CITY: ${{ secrets.CITY }}
+
+      HER_BIRTHDAY: ${{ secrets.HER_BIRTHDAY }}
+      MY_BIRTHDAY: ${{ secrets.MY_BIRTHDAY }}
+
+      BIG_MOTHER_DAY: ${{ secrets.BIG_MOTHER_DAY }}
+      BIG_MOTHER_DAY_LEAVE: ${{ secrets.BIG_MOTHER_DAY_LEAVE }}
+
       APP_ID: ${{ secrets.APP_ID }}
       APP_SECRET: ${{ secrets.APP_SECRET }}
-      TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+
       USER_ID1: ${{ secrets.USER_ID1 }}
       USER_ID2: ${{ secrets.USER_ID2 }}
-      START_DATE: ${{ secrets.START_DATE }}
-      BIRTHDAY: ${{ secrets.BIRTHDAY }}
-      CITY: ${{ secrets.CITY }}
-      BIG_MOTHER_DAY: ${{ secrets.BIG_MOTHER_DAY }}
+
+      WEATHER_TEMPLATE_ID: ${{ secrets.WEATHER_TEMPLATE_ID }}
+      DATE_TEMPLATE_ID: ${{ secrets.DATE_TEMPLATE_ID }}
+      FUNNY_TEMPLATE_ID: ${{ secrets.FUNNY_TEMPLATE_ID }}
+      WWZC_TEMPLATE_ID: ${{ secrets.WWZC_TEMPLATE_ID }}
+
       TX_API_KEY: ${{ secrets.TX_API_KEY }}
