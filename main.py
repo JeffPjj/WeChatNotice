@@ -187,7 +187,7 @@ def get_mother_day_notice(big_mother_day, today_date):
         return "姨妈ing，别想冷饮了，吨吨吨热水吧！"
     else:
         next_mother_day = get_next_mother_day(today_date)
-        if 1 < next_mother_day <= 7:
+        if 1 <= next_mother_day <= 7:
             return "大姨妈快来啦，不能再吨吨吨地喝冷饮咯！"
         elif 7 < next_mother_day < 12:
             return "大姨妈刚走哦，别一下子吨吨吨喝太多冷饮哦！"
