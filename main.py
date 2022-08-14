@@ -245,7 +245,7 @@ def date_menage_sender(wm, user_id, template_id):
         "until_my_birthday": {"value": until_my_birthday, "color": "#166985"},
         "big_mother_day": {"value": b_m_d, "color": "#A52A2A"},
         "text1": text1,
-        "big_mother_day_leave": {"value": big_mother_day_leave, "color": "#E69E9E"},
+        "big_mother_day_leave": {"value": b_m_d_l, "color": "#E69E9E"},
         "next_big_mother_day": {"value": next_big_mother_day, "color": "#6aa84f"},
         "text2": text2,
         "mother_day_notice": {"value": mother_day_notice, "color": "#75A3AE"},
