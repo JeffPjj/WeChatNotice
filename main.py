@@ -161,11 +161,11 @@ def get_next_mother_day(today_date):
 """
 def get_big_mother_value(big_mother_day, big_mother_day_leave, today_date):
     if big_mother_day == "True":
-        return "正在经期中...", special_text(), "", "正在经期中...", special_text()
+        return "正在经期中...", special_text(), special_text(), "正在经期中...", special_text()
     else:
         next_mother_day = get_next_mother_day(today_date)
         if next_mother_day < 0:
-            return big_mother_day, special_text("-", "#000000"), big_mother_day_leave, "延迟 {days} ".format(days=str(next_mother_day)), special_text("天", "#000000")
+            return big_mother_day, special_text("-", "#000000"), big_mother_day_leave, "延迟 {days} ".format(days=str(abs(next_mother_day))), special_text("天", "#000000")
         else:
             return big_mother_day, special_text("-", "#000000"), big_mother_day_leave, str(next_mother_day), special_text("天后", "#000000")
 
