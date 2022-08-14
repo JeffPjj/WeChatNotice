@@ -7,6 +7,7 @@ import os
 import random
 from datetime import timedelta
 from datetime import timezone
+import time
 
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
@@ -42,6 +43,7 @@ def get_tody():
 
     # 北京时间
     beijing_now = utc_now.astimezone(SHA_TZ)
+    print(beijing_now)
     return datetime.strptime(str(beijing_now).split(" ")[0], "%Y-%m-%d")
 
 
@@ -312,6 +314,6 @@ def run(user_id):
     date_menage_sender(wm, user_id, date_template_id)
     funny_sender(wm, user_id, funny_template_id)
     wwzc_sender(wm, user_id, wwzc_template_id)
-
+print(int(round(time.time() * 1000)))
 run(user_id1)
 run(user_id2)
