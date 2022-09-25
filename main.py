@@ -194,7 +194,7 @@ def get_mother_day_notice(big_mother_day, today_date):
         elif 7 < next_mother_day < 12:
             return "大姨妈刚走哦，别一下子吨吨吨喝太多冷饮哦！"
         elif next_mother_day <= 0:
-            return "姨妈延期了{days}天诶，别担心，保持愉悦心情和正常作息即可！".format(days=next_mother_day)
+            return "姨妈延期了{days}天诶，别担心，保持愉悦心情和正常作息即可！".format(days=abs(next_mother_day))
         else:
             return "大姨妈旅游去了，该吃吃该喝喝！"
 
